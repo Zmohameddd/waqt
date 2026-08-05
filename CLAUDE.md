@@ -59,6 +59,34 @@ waqt/
 
 ---
 
+## API
+
+REST convention: URLs are resources (nouns), HTTP methods are actions (verbs).
+
+### Auth
+- `POST /auth/register` — create account
+- `POST /auth/login` — returns JWT
+
+### Daily Goal
+- `GET /daily-goal?date=YYYY-MM-DD` — get today's targets + prayer times + workout type. Auto-generates the DailyGoal row on first call for a given date if it doesn't exist yet (pulls Aladhan prayer times, derives workout day from split, applies standing protein/water/quran targets). No separate "generate" endpoint — read always works.
+
+### Progress Logs
+- `POST /logs` — log progress for a category (body: category, value, timestamp)
+- `GET /logs?date=YYYY-MM-DD` — all logs for a given day
+
+### Streaks
+- `GET /streaks` — all 6 streaks (5 categories + overall), current + longest
+
+### Weekly View
+- `GET /weekly-summary?week_start=YYYY-MM-DD` — aggregated week view
+
+### Quotes
+- `GET /quotes/random` — one active quote for the reminder card
+
+### Push Notifications
+- `POST /devices/register` — register Expo push token for this user's device
+
+
 ## Working with Claude Code — behavioral guidelines
 *Biases toward caution over speed. I'm learning this stack deliberately — don't skip the reasoning to save time.*
 
