@@ -48,6 +48,15 @@ waqt/
 ## Architecture notes
 - Per-category streaks (prayer, food, workout, water, Quran) are tracked independently — no single "day completed" boolean. Each category has its own streak counter that increments/resets on its own.
 
+- Per-category streaks (prayer, food, workout, water, quran) are tracked independently in the Streak table — no single "day completed" boolean.
+- Per-category completion criteria (strict — must hit full target):
+  - Prayer: all 5 prayers logged
+  - Food: sum(protein logged) >= protein_target_g
+  - Workout: boolean session-complete flag
+  - Water: sum(water logged) >= water_target_ml
+  - Quran: sum(minutes logged) >= quran_target_minutes
+- The "overall" streak is a SEPARATE row in Streak (category="overall"), NOT derived from the other five. It only requires at least one ProgressLog entry that day, regardless of category or whether any target was hit.
+
 ---
 
 ## Working with Claude Code — behavioral guidelines
